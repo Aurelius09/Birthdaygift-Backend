@@ -5,7 +5,11 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "https://Aurelius09.github.io"
+    }
+})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False            #wir erstellen hier unsere Datenbank 
