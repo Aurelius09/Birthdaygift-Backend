@@ -63,6 +63,15 @@ def add_rezension():
 
     return jsonify({"status": "ok"})
 
+@app.route("/api/rezensionen/<int:id>", methods=["DELETE"])
+def delete_rezension(id):
+    rezension = Rezension.query.get_or_404(id)
+
+    db.session.delete(rezension)
+    db.session.commit()
+
+    return jsonify({"status": "deleted"})
+
 
 if __name__ == "__main__":
     with app.app_context():
