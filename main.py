@@ -11,8 +11,9 @@ CORS(app, resources={
     }
 })
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False            #wir erstellen hier unsere Datenbank 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("postgresql://birthdaygift_db_user:H00jHnBe7sfWYdGeqXPmyb4YxK7elzMD@dpg-d8cpc8e8bjmc73ca69hg-a.oregon-postgres.render.com/birthdaygift_db")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
