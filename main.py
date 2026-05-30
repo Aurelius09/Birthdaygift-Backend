@@ -5,11 +5,14 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "https://Aurelius09.github.io"
+    }
+})
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("postgresql://birthdaygift_db_user:H00jHnBe7sfWYdGeqXPmyb4YxK7elzMD@dpg-d8cpc8e8bjmc73ca69hg-a.oregon-postgres.render.com/birthdaygift_db")
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False            #wir erstellen hier unsere Datenbank 
 
 db = SQLAlchemy(app)
 
@@ -60,7 +63,19 @@ def add_rezension():
 
     return jsonify({"status": "ok"})
 
+@app.route("/api/rezensionen/<int:id>", methods=["DELETE"])
+def delete_rezension(id):
+    rezension = Rezension.query.get_or_404(id)
+
+    db.session.delete(rezension)
+    db.session.commit()
+
+    return jsonify({"status": "deleted"})
+
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+        
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
