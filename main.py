@@ -12,7 +12,7 @@ CORS(app, resources={
 })
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("postgresql://birthdaygift_db_user:H00jHnBe7sfWYdGeqXPmyb4YxK7elzMD@dpg-d8cpc8e8bjmc73ca69hg-a/birthdaygift_db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
